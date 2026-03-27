@@ -117,6 +117,19 @@ const restartBtnBottom = document.getElementById("restartBtnBottom");
 const questionNav = document.getElementById("questionNav");
 let nextButton = null;
 
+function getShuffledQuestion(question, questionIndex) {
+  const shift = questionIndex % question.options.length;
+  const entries = question.options.map((option, index) => ({ option, originalIndex: index }));
+  const rotated = entries.map((_, index) => entries[(index + shift) % entries.length]);
+  const answer = rotated.findIndex((entry) => entry.originalIndex === question.answer);
+
+  return {
+    question: question.question,
+    options: rotated.map((entry) => entry.option),
+    answer,
+  };
+}
+
 function updateHeader() {
   questionCounter.textContent = `${Math.min(state.currentIndex + 1, questions.length)} / ${questions.length}`;
   scoreCounter.textContent = String(state.score);
@@ -160,7 +173,7 @@ function showQuestion() {
     nextButton = null;
   }
 
-  const currentQuestion = questions[state.currentIndex];
+  const currentQuestion = getShuffledQuestion(questions[state.currentIndex], state.currentIndex);
   questionText.textContent = currentQuestion.question;
 
   currentQuestion.options.forEach((option, index) => {
@@ -177,7 +190,7 @@ function handleAnswer(selectedIndex) {
   if (state.locked) return;
   state.locked = true;
 
-  const currentQuestion = questions[state.currentIndex];
+  const currentQuestion = getShuffledQuestion(questions[state.currentIndex], state.currentIndex);
   const answerButtons = [...document.querySelectorAll(".answer-btn")];
   const correctIndex = currentQuestion.answer;
 
