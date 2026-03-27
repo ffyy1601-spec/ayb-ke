@@ -40,14 +40,44 @@ function getLevelScore(level) {
   return state.answers[level].filter((value) => value === true).length;
 }
 
+function createSeed(text) {
+  let hash = 2166136261;
+
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return hash >>> 0;
+}
+
+function seededShuffle(items, seedText) {
+  const list = [...items];
+  let seed = createSeed(seedText);
+
+  for (let index = list.length - 1; index > 0; index -= 1) {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    const swapIndex = seed % (index + 1);
+    [list[index], list[swapIndex]] = [list[swapIndex], list[index]];
+  }
+
+  return list;
+}
+
 function getBalancedQuestion(question, index) {
-  const targetAnswerIndex = index % question.o.length;
-  const shift = (question.a - targetAnswerIndex + question.o.length) % question.o.length;
+  const entries = question.o.map((option, optionIndex) => ({
+    option,
+    originalIndex: optionIndex,
+  }));
+  const shuffledEntries = seededShuffle(
+    entries,
+    `${state.level}-${index}-${question.q}-${question.o.join("|")}`
+  );
 
   return {
     q: question.q,
-    o: question.o.map((_, optionIndex) => question.o[(optionIndex + shift) % question.o.length]),
-    a: targetAnswerIndex,
+    o: shuffledEntries.map((entry) => entry.option),
+    a: shuffledEntries.findIndex((entry) => entry.originalIndex === question.a),
   };
 }
 
