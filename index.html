@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dil Gelişimi Testi</title>
+    <title>Dil Gelisimi Testi</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -32,7 +32,7 @@
     <main class="app-shell">
       <aside class="navigator-card">
         <div class="navigator-head">
-          <p class="eyebrow">Hızlı Geçiş</p>
+          <p class="eyebrow">Hizli Gecis</p>
           <h2>Sorular</h2>
         </div>
         <div id="questionNav" class="question-nav"></div>
@@ -41,16 +41,12 @@
       <section class="card">
         <div class="topbar">
           <div>
-            <p class="eyebrow">Sunumdan Üretilen Test</p>
-            <h1>Dil ve Kavram Gelişimi</h1>
+            <p class="eyebrow">Sunumdan Uretilen Test</p>
+            <h1>Dil ve Kavram Gelisimi</h1>
           </div>
-          <button id="restartBtn" class="ghost-btn" type="button">Baştan Başla</button>
-        </div>
-
-        <div class="level-tabs" id="levelTabs">
-          <button class="tab-btn active" data-level="easy" type="button">Kolay</button>
-          <button class="tab-btn" data-level="medium" type="button">Orta</button>
-          <button class="tab-btn" data-level="hard" type="button">Zor</button>
+          <div class="topbar-actions">
+            <button id="backToLevelsBtn" class="ghost-btn back-btn" type="button" aria-label="Geri">&#8592;</button>
+          </div>
         </div>
 
         <div class="status-row">
@@ -59,11 +55,11 @@
             <strong id="questionCounter">1 / 50</strong>
           </div>
           <div class="status-box">
-            <span>Doğru</span>
+            <span>Dogru</span>
             <strong id="scoreCounter">0</strong>
           </div>
           <div class="status-box">
-            <span>Bölüm</span>
+            <span>Bolum</span>
             <strong id="levelLabel">Kolay</strong>
           </div>
         </div>
@@ -79,15 +75,14 @@
         </section>
 
         <section id="resultScreen" class="result-screen hidden">
-          <p class="eyebrow">Test Tamamlandı</p>
-          <h2 id="resultTitle">Skorun Hazır</h2>
+          <p class="eyebrow">Test Tamamlandi</p>
+          <h2 id="resultTitle">Skorun Hazir</h2>
           <p id="resultText" class="result-text"></p>
-          <button id="restartBtnBottom" class="primary-btn" type="button">Tekrar Çöz</button>
         </section>
       </section>
     </main>
 
-    <script src="./questions.js?v=20260327f"></script>
-    <script src="./app.js?v=20260327f"></script>
+    <script src="./questions.js?v=20260327g"></script>
+    <script src="./app.js?v=20260327g"></script>
   </body>
 </html>

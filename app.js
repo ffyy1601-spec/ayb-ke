@@ -24,10 +24,8 @@ const feedback = document.getElementById("feedback");
 const quizScreen = document.getElementById("quizScreen");
 const resultScreen = document.getElementById("resultScreen");
 const resultText = document.getElementById("resultText");
-const restartBtn = document.getElementById("restartBtn");
-const restartBtnBottom = document.getElementById("restartBtnBottom");
+const backToLevelsBtn = document.getElementById("backToLevelsBtn");
 const questionNav = document.getElementById("questionNav");
-const levelTabs = document.getElementById("levelTabs");
 const levelLabel = document.getElementById("levelLabel");
 const welcomeScreen = document.getElementById("welcomeScreen");
 const levelScreen = document.getElementById("levelScreen");
@@ -88,12 +86,6 @@ function getBalancedQuestion(question, index) {
   };
 }
 
-function updateTabs() {
-  [...levelTabs.querySelectorAll(".tab-btn")].forEach((button) => {
-    button.classList.toggle("active", button.dataset.level === state.level);
-  });
-}
-
 function updateHeader() {
   const questions = getCurrentQuestions();
   questionCounter.textContent = `${Math.min(state.currentIndex + 1, questions.length)} / ${questions.length}`;
@@ -101,7 +93,6 @@ function updateHeader() {
   levelLabel.textContent = levelOrder.find((item) => item.key === state.level).label;
   progressBar.style.width = `${(state.currentIndex / questions.length) * 100}%`;
   renderNavigator();
-  updateTabs();
 }
 
 function renderNavigator() {
@@ -208,15 +199,6 @@ function showResults() {
   resultText.textContent = `${levelLabel.textContent} bolumunde ${getCurrentQuestions().length} sorunun ${levelScore} tanesini dogru yaptin. Dilersen ayni bolumu bastan cozecek ya da diger zorluk duzeyine gececeksin.`;
 }
 
-function restartCurrentLevel() {
-  state.currentIndex = 0;
-  state.locked = false;
-  state.answers[state.level] = Array(getCurrentQuestions().length).fill(null);
-  quizScreen.classList.remove("hidden");
-  resultScreen.classList.add("hidden");
-  showQuestion();
-}
-
 function setLevel(level) {
   state.level = level;
   state.currentIndex = 0;
@@ -234,8 +216,12 @@ function jumpToQuestion(index) {
   showQuestion();
 }
 
-restartBtn.addEventListener("click", restartCurrentLevel);
-restartBtnBottom.addEventListener("click", restartCurrentLevel);
+backToLevelsBtn.addEventListener("click", () => {
+  appShell.classList.add("hidden-layout");
+  resultScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  levelScreen.classList.remove("hidden");
+});
 startBtn.addEventListener("click", () => {
   welcomeScreen.classList.add("hidden");
   levelScreen.classList.remove("hidden");
@@ -247,8 +233,4 @@ chooserButtons.forEach((button) => {
     appShell.classList.remove("hidden-layout");
     setLevel(button.dataset.startLevel);
   });
-});
-
-[...levelTabs.querySelectorAll(".tab-btn")].forEach((button) => {
-  button.addEventListener("click", () => setLevel(button.dataset.level));
 });

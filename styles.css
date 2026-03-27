@@ -177,6 +177,24 @@ body {
   align-items: center;
 }
 
+.topbar-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.back-btn {
+  width: 52px;
+  min-width: 52px;
+  min-height: 52px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
 .level-tabs {
   display: flex;
   gap: 12px;
@@ -210,6 +228,7 @@ body {
 
 .status-row {
   margin-top: 20px;
+  align-items: stretch;
 }
 
 .eyebrow {
@@ -236,8 +255,9 @@ h1 {
 
 .status-box {
   flex: 1;
-  padding: 14px 16px;
-  border-radius: 22px;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 18px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(250, 243, 233, 0.95));
   border: 1px solid var(--line);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -246,12 +266,13 @@ h1 {
 .status-box span {
   display: block;
   color: var(--muted);
-  font-size: 0.88rem;
-  margin-bottom: 6px;
+  font-size: 0.76rem;
+  margin-bottom: 4px;
 }
 
 .status-box strong {
-  font-size: 1.2rem;
+  font-size: 0.98rem;
+  line-height: 1.2;
 }
 
 .progress-track {
@@ -416,10 +437,21 @@ h1 {
   }
 
   .topbar,
-  .status-row,
   .answers {
     grid-template-columns: 1fr;
     display: grid;
+  }
+
+  .topbar-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .status-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    align-items: stretch;
   }
 
   .level-tabs {
@@ -439,7 +471,17 @@ h1 {
   }
 
   .status-box {
-    padding: 12px 14px;
+    padding: 9px 10px;
+    border-radius: 16px;
+  }
+
+  .status-box span {
+    font-size: 0.7rem;
+    margin-bottom: 3px;
+  }
+
+  .status-box strong {
+    font-size: 0.86rem;
   }
 
   .question-text {
@@ -474,6 +516,12 @@ h1 {
     width: 100%;
   }
 
+  .back-btn {
+    width: 48px;
+    min-width: 48px;
+    width: 48px;
+  }
+
   .welcome-card {
     padding: 32px 18px;
     border-radius: 28px;
@@ -505,5 +553,17 @@ h1 {
   .answer-btn {
     padding: 13px;
     min-height: 64px;
+  }
+
+  .status-row {
+    gap: 6px;
+  }
+
+  .status-box {
+    padding: 8px 9px;
+  }
+
+  .status-box strong {
+    font-size: 0.8rem;
   }
 }
