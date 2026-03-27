@@ -33,6 +33,43 @@ body {
     linear-gradient(135deg, #f8f1e8 0%, #f6efe7 52%, #f3eadf 100%);
 }
 
+.welcome-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.welcome-card {
+  width: min(720px, 100%);
+  padding: 42px 32px;
+  border-radius: 34px;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 249, 240, 0.8)),
+    var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.welcome-title {
+  font-size: clamp(2.1rem, 6vw, 4rem);
+  margin-bottom: 14px;
+}
+
+.welcome-text {
+  max-width: 460px;
+  margin: 0 auto 24px;
+  color: var(--muted);
+  font-size: 1.06rem;
+  line-height: 1.7;
+}
+
+.welcome-btn {
+  min-width: 180px;
+}
+
 .app-shell {
   width: min(1240px, calc(100% - 32px));
   margin: 32px auto;
@@ -40,6 +77,10 @@ body {
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
   gap: 24px;
+}
+
+.app-shell.hidden-layout {
+  display: none;
 }
 
 .navigator-card,
@@ -415,6 +456,15 @@ h1 {
   .ghost-btn,
   .primary-btn {
     width: 100%;
+  }
+
+  .welcome-card {
+    padding: 32px 18px;
+    border-radius: 28px;
+  }
+
+  .welcome-text {
+    font-size: 0.98rem;
   }
 }
 

@@ -29,8 +29,13 @@ const restartBtnBottom = document.getElementById("restartBtnBottom");
 const questionNav = document.getElementById("questionNav");
 const levelTabs = document.getElementById("levelTabs");
 const levelLabel = document.getElementById("levelLabel");
+const welcomeScreen = document.getElementById("welcomeScreen");
+const startBtn = document.getElementById("startBtn");
+const appShell = document.querySelector(".app-shell");
 
 let nextButton = null;
+
+appShell.classList.add("hidden-layout");
 
 function getCurrentQuestions() {
   return quizData[state.level];
@@ -229,9 +234,12 @@ function jumpToQuestion(index) {
 
 restartBtn.addEventListener("click", restartCurrentLevel);
 restartBtnBottom.addEventListener("click", restartCurrentLevel);
+startBtn.addEventListener("click", () => {
+  welcomeScreen.classList.add("hidden");
+  appShell.classList.remove("hidden-layout");
+  showQuestion();
+});
 
 [...levelTabs.querySelectorAll(".tab-btn")].forEach((button) => {
   button.addEventListener("click", () => setLevel(button.dataset.level));
 });
-
-showQuestion();
