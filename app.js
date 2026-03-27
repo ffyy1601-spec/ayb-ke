@@ -30,8 +30,10 @@ const questionNav = document.getElementById("questionNav");
 const levelTabs = document.getElementById("levelTabs");
 const levelLabel = document.getElementById("levelLabel");
 const welcomeScreen = document.getElementById("welcomeScreen");
+const levelScreen = document.getElementById("levelScreen");
 const startBtn = document.getElementById("startBtn");
 const appShell = document.querySelector(".app-shell");
+const chooserButtons = [...document.querySelectorAll("[data-start-level]")];
 
 let nextButton = null;
 
@@ -236,8 +238,15 @@ restartBtn.addEventListener("click", restartCurrentLevel);
 restartBtnBottom.addEventListener("click", restartCurrentLevel);
 startBtn.addEventListener("click", () => {
   welcomeScreen.classList.add("hidden");
-  appShell.classList.remove("hidden-layout");
-  showQuestion();
+  levelScreen.classList.remove("hidden");
+});
+
+chooserButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    levelScreen.classList.add("hidden");
+    appShell.classList.remove("hidden-layout");
+    setLevel(button.dataset.startLevel);
+  });
 });
 
 [...levelTabs.querySelectorAll(".tab-btn")].forEach((button) => {
