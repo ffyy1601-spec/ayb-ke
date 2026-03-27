@@ -45,6 +45,243 @@ function getLevelScore(level) {
   return state.answers[level].filter((value) => value === true).length;
 }
 
+const distractorGroups = {
+  easy: [
+    {
+      range: [0, 9],
+      pool: [
+        "Mesajin kaynaktan aliciya aktarilmasi",
+        "Konusma yoluyla dili kullanabilmesi",
+        "Iletisim",
+        "Dili ve onu olusturan birimleri",
+        "Bireyler arasi iletisim",
+        "Toplumsal",
+        "Yasanti ve anlam cikarma surecleriyle",
+        "Cevredeki dil yasantiya katildiginda",
+        "Topluluga ait olma duygusunu destekler",
+        "Bilgi ve yasam tarzini nesilden nesle aktarir",
+      ],
+    },
+    {
+      range: [10, 17],
+      pool: [
+        "Fonoloji",
+        "Seslerin dizilis ve kullanim kurallarini",
+        "Kelime turetme ve bicimlenme kurallariyla",
+        "Kelimelerin cumle icinde dizilisini",
+        "Ne anlama gelir?",
+        "Konusmanin baglama uygun kullanimi",
+        "Pragmatik",
+      ],
+    },
+    {
+      range: [18, 24],
+      pool: [
+        "Skinner",
+        "Chomsky",
+        "Bilissel olgunlasma ile",
+        "Cocuk ve cevre etkilesimiyle",
+        "Dil anlama",
+        "Konusma uretimi",
+      ],
+    },
+    {
+      range: [25, 31],
+      pool: [
+        "Fasciculus arcuatus",
+        "Sol temporal lob",
+        "Konusma, yutma, solunum, cigneme",
+        "Refleksif vokalizasyonlar",
+        "Fiziksel durumdan kaynaklanan refleksif sesler",
+        "Nefes alma gereksinimiyle",
+        "Konusma seslerine benzeyen tekrarlar artar",
+      ],
+    },
+    {
+      range: [32, 43],
+      pool: [
+        "Iletisimsel niyetin guclendigini",
+        "12-18 ay",
+        "Tek sozcukle genis anlam anlatma",
+        "18-24 ay",
+        "Edat, zamir ve yardimci fiiller",
+        "Yeni kelimelerin hizla artmasini",
+        "9",
+        "200",
+        "Dilbilgisi kurallarina gore konusma donemi",
+        "1000",
+        "2000",
+        "Dun, bugun, yarin",
+      ],
+    },
+    {
+      range: [44, 49],
+      pool: [
+        "14000",
+        "Biyolojik, bilissel ve cevresel etkenler",
+        "Sozcuk dagarcigini ve anlamayi arttirir",
+        "Dil gelisimini etkileyen cevresel faktorler arasinda",
+        "2600",
+        "Dogru sosyal ve dilsel girdi",
+      ],
+    },
+  ],
+  medium: [
+    {
+      range: [0, 9],
+      pool: [
+        "Iletisim semsiye kavramdir; dil arac, konusma iletim yoludur",
+        "Toplumun bilgi ve yasam tarzinin cocuklara aktarilmasi",
+        "Zihinde canlanan kavramlarin sozcuklerle iliskilenmesini",
+        "Fonoloji sesleri, morfoloji kelime bicimlerini inceler",
+        "Biri dizilise, digeri anlama odaklanir",
+        "Konusma sirasini ve geri bildirim vermeyi uygun kullanmasi",
+        "Biri cevre ve pekistirmeyi, digeri dogal dil yatkinligini vurgular",
+        "Kavram gelistikce dil yapilarinin da zenginlesmesi",
+        "Cocugun aktif ogrenmesi ile cevreden gelen girdinin birlikte islemesi",
+        "Anlama ve uretimin baglantili ilerlemesini",
+      ],
+    },
+    {
+      range: [10, 19],
+      pool: [
+        "Biri organ ve islevleri, digeri beyin alanlarini vurgular",
+        "Jargonda yetiskin konusmasina benzeyen tonlama daha belirgindir",
+        "Anlamli sozcuk kullaniminin guclenmesine",
+        "Holofraz tek sozcukle genis anlamdir; telegrafik konusma iki ya da daha fazla anlamli sozcuk birlestirir",
+        "Bir sozcugu benzer birden fazla nesneye yayar",
+        "Sozcugun kapsaminin gerektiginden daha sinirli kullanilmasini",
+        "Erken sozcuk dagarciginda nesne adlarinin on planda oldugunu",
+        "Yetiskine benzer kisa cumleler daha erken gorulebilir",
+        "Soz dizimi ve anlami birlestirme becerisini",
+        "Dilsel zaman kavrayisinin gelismesi",
+      ],
+    },
+    {
+      range: [20, 29],
+      pool: [
+        "Sozcuk ile nesne arasinda bag kurmayi kolaylastirir",
+        "Neden-sonuc iliskili daha baglantili cumleleri",
+        "Baskasini ikna etme ve etkilemede dili daha amacli kullanir",
+        "Ilkokul yillari",
+        "Alici dilin ifade dilinden daha genis olabildigini",
+        "Temsil olusturma, isleme, saklama ve planlamayi destekler",
+        "Dil ogrenme ve kullanma surecine destek saglar",
+        "Erken donemde dilin daha hizli ilerlemesine",
+        "Kelime dagarcigi hizinda fark olusabilmesiyle",
+        "Biyolojik etken aciklamasi",
+      ],
+    },
+    {
+      range: [30, 39],
+      pool: [
+        "Model olma ve etkilesim firsatlari sunarak",
+        "Kelime dagarcigi ve anlama",
+        "Cevresel dil girdisinin yapisini degistirdigi icin",
+        "Gelisim icin cocuga daha fazla dilsel ornek sundugu icin",
+        "Ortak gelisimsel bir cerceve bulundugunu",
+        "Dil girdisini anlamli ve karsilikli hale getirir",
+        "Yeni sozcuklerin daha hizli ogrenilmesini kolaylastirmasi",
+        "Iliski kurma ve surdurmeyi kolaylastirir",
+        "Anlamsal iliski kurma becerisi",
+        "Kulturel aktarimla",
+      ],
+    },
+    {
+      range: [40, 49],
+      pool: [
+        "Dil gelisiminin cevresel yonunu",
+        "Kanal",
+        "Birlik ve ulus bilincini destekleyebilir",
+        "Dil ile dusunce arasinda guclu bag oldugunu",
+        "Amacli iletisim davranisinin artisini",
+        "Dil bilgisinin yapilanmaya basladigini",
+        "Ilkokul yillarinda",
+        "Biyolojik, bilissel ve cevresel etkenler birlikte isler",
+        "Dil gelisiminin asamali bir yapisi oldugunu",
+        "Anlamli sosyal girdinin kelime ogrenimini kolaylastirmasiyla",
+      ],
+    },
+  ],
+  hard: [
+    {
+      range: [0, 9],
+      pool: [
+        "Cocuk aktif ogrenirken aile, cevre ve bilissel surecler birlikte dili bicimlendirir",
+        "Yasantilar kavramlari, kavramlar da dilsel sembollerle zihinde orgutlenmeyi destekler",
+        "Dilsel bicim ve anlami farkli ama bagli katmanlar halinde aciklarlar",
+        "Konusmayi uygun zamanda baslatma ve surdurmede zorlanma",
+        "Etkilesimci bakis",
+        "Duyulan kelime ve cumlelerin anlamini isleme guclugu",
+        "Konusma uretiminde belirgin zorlanma",
+        "Dil hem norolojik hem fizyolojik bir koordinasyon urunudur",
+        "Iletisim biyolojik temelden amacli dilsel kullanima dogru gelisir",
+        "Anlam yukunun sozcuk sayisindan bagimsiz olarak buyuk olabilecegini",
+      ],
+    },
+    {
+      range: [10, 19],
+      pool: [
+        "Anlam cekirdegi tasiyan sozcuklerin oncelikli oldugunu",
+        "Dil yapisinin edinim bicimini etkileyebilecegini",
+        "Kelime, dilbilgisi ve kavramsal yapilarin ayni anda hizla gelismesiyle",
+        "Dilsel ifade bicimlerinin bilissel olgunlasmayla genisledigini",
+        "Pragmatik beceri ve sosyal bakis acisi alma",
+        "Cocuk bircok sozcugu kullanmadan once anlar",
+        "Anlama becerisinin uretimden once gelisebildiginin",
+        "Erken semantik kategorilerin zamanla duzeltildigini",
+        "Cocuk erken donemde nesne ve istek odakli iletisim kurar",
+        "Hem aidiyet duygusunu hem de toplumsal bilgi birikimini",
+      ],
+    },
+    {
+      range: [20, 29],
+      pool: [
+        "Ortak bir gelisimsel iskeletin cevreyle bicimlendigi gorusunu",
+        "Erken donemde dil ilerleme hizinda fark olusabilmesini",
+        "Dil gelisiminde biyolojik ve cevresel etkenler birlikte rol oynar",
+        "Cunku cocuga baglam icinde yeni sozcuk ve kavram iliskileri sunar",
+        "Dil girdisinin niteligindeki degisimlerin edinimi bicimlendirebildigini",
+        "Zengin ve anlamli girdi yeni sozcuk edinimini hizlandirabilir",
+        "Biyolojik seslerden amacli dil kullanimina gecisi",
+        "Iletisimsel niyet ve pragmatik kullanimin",
+        "Telegrafik konusma asamasi",
+        "Temel yapilarin buyuk olcude kurulmus oldugunu ama gelisimin surdugunu",
+      ],
+    },
+    {
+      range: [30, 39],
+      pool: [
+        "Semantik orgutlenmeye",
+        "Karsidakini ikna etmeye yonelik baglamsal anlatimi",
+        "Uzlasilan ortak dil dizgesinin bireyleri bir arada tutmasina",
+        "Icsel dusunce ile dilsel temsil arasinda yakin bag oldugunu",
+        "Cocuk hem ekleri hem de cumle duzenini daha tutarli kullanir",
+        "Dogru anlam, uygun cumle yapisi ve baglama uygun kullanim",
+        "Ilkokulda dili baskalarini etkilemek icin kullanmak",
+        "Isitsel deneyim ile semantik eslestirmenin",
+        "Pragmatik ve sosyal bakis acisi alma",
+        "Ucunun de cocuga sunulan cevresel dil girdisini etkilemesi nedeniyle",
+      ],
+    },
+    {
+      range: [40, 49],
+      pool: [
+        "Bilissel ve etkilesimci yaklasimlar arasinda",
+        "Dil surecinin tek bir merkezle aciklanamayacak kadar karmasik oldugunu",
+        "Dil kullaniminin nesne adlandirmadan iliski ve eylem anlatimina dogru genisledigini",
+        "Temel anlamdan daha karmasik dilsel muhakemeye dogru ilerleme",
+        "Biyolojik altyapi, bilissel yapilanma ve cevresel etkilesimin ortak urunudur",
+        "Bireyler arasi iletisim, dusunce, grup kimligi, kulturel aktarim",
+        "Hangi becerinin hangi tur sorularla olculecegini tahmin etmeye",
+        "Dil gelisimi cok boyutlu bir surectir ve tek bir etmene indirgenemez",
+        "Cunku dil gelisimi biyolojik, bilissel ve cevresel boyutlarin kesistigi karmasik bir surectir",
+        "Dil hem bedensel olarak uretilen hem de toplumsal anlam tasiyan bir yapidir",
+      ],
+    },
+  ],
+};
+
 function createSeed(text) {
   let hash = 2166136261;
 
@@ -196,7 +433,7 @@ function showResults() {
   progressBar.style.width = "100%";
   quizScreen.classList.add("hidden");
   resultScreen.classList.remove("hidden");
-  resultText.textContent = `${levelLabel.textContent} bolumunde ${getCurrentQuestions().length} sorunun ${levelScore} tanesini dogru yaptin. Dilersen ayni bolumu bastan cozecek ya da diger zorluk duzeyine gececeksin.`;
+  resultText.textContent = `${levelLabel.textContent} bolumunde ${getCurrentQuestions().length} sorunun ${levelScore} tanesini dogru yaptin. Geri oku ile zorluk secimine donebilir ve baska bir bolume gecebilirsin.`;
 }
 
 function setLevel(level) {
